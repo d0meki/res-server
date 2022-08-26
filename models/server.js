@@ -5,8 +5,20 @@ class Server {
     constructor() {
         this.app = express()
         this.port = process.env.PORT
-        this.usuariosPath = '/api/usuarios'
+        
+        this.path ={ //mejor forma de hacer los path
+            auth:'/api/auth',
+            usuarios :'/api/usuarios',
+            categorias:'/api/categorias'
+        }
+        
+        
+ //       this.usuariosPath = '/api/usuarios'
 
+        //Path agregado desde el Secmento 10 Api WEB Tocken
+ //       this.authPath = '/api/auth'
+
+        
         //conectar a base de datos
         this.conectarDB()
 
@@ -31,7 +43,11 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.usuariosPath, require('../routes/usuarios'))
+        // this.app.use(this.authPath, require('../routes/auth'))
+        // this.app.use(this.usuariosPath, require('../routes/usuarios'))        
+        this.app.use(this.path.auth, require('../routes/auth'))
+        this.app.use(this.path.usuarios, require('../routes/usuarios'))        
+        this.app.use(this.path.categorias, require('../routes/categorias'))        
     }
     liste() {
 
